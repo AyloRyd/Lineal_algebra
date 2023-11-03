@@ -55,7 +55,9 @@ void Matrix::print() const
     }
 
     for (int i = 0; i < rows_; i++) {
-        std::cout << "(";
+        if (i == 0) std::cout << "/ ";
+        else if (i == rows_ - 1) std::cout << "\\ ";
+        else std::cout << "| ";
         for (int j = 0; j < cols_; j++) {
             int valueLength = countDigitsInDouble(data_[i][j]);
             for (int space = 0; space < max_lengths[j] - valueLength; space++) {
@@ -63,7 +65,9 @@ void Matrix::print() const
             }
             j == cols_ - 1 ? std::cout << data_[i][j] : std::cout << data_[i][j] << "  ";
         }
-        i == rows_ - 1 ? std::cout << ")" : std::cout << ")\n";
+        if (i == 0) std::cout << " \\\n";
+        else if (i == rows_ - 1) std::cout << " /\n";
+        else std::cout << " |\n";
     }
 }
 
