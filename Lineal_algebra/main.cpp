@@ -35,20 +35,22 @@ int main() {
 
     //std::cout << A.determinant();
 
-    //Matrix C = {
-    //    {1,2,3,4},
-    //    {2,5,8,9},
-    //    {3,8,0,2},
-    //    {4,3,3,3}
-    //};
+    Matrix C = {
+        {1.5,2,3,4},
+        {2,5,8,9},
+        {3,8,0.35,2},
+        {4.8,3,3,3}
+    };
+    C.print();
 
     //std::cout << C.determinant();
     //std::cout << "\n\n";
 
-    //Vector a(2, 3, 4), b(5, 2, 7), c(3, 8, 2);
+    //Vector a(1, -3, 2), b(1, 3, 1), c(3, 8, 2);
     //Vector d = Vector::Vector_product(a, b);
     //d.print();
     //std::cout << "\n\n";
+    //std::cout << d.length();
 
     //double result = Vector::Mixed_product(a, b, c);
     //std::cout << result;
@@ -59,5 +61,35 @@ int main() {
     //C = C * (-2);
     //C.print();
 
+    //Matrix F = {
+    //    {2,1,4,5},
+    //    {3,3,1,3},
+    //    {2,1,5,2}
+    //};
+
+    //Matrix I = F.inverse_matrix();
+    //I.print();
+
+    //Matrix Pow = C.pow(3);
+    //Pow.print();
+
+    Matrix K = {
+        {6},
+        {-2},
+        {7},
+        {4}
+    };
+
+    //Matrix FK = F * K;
+    //FK.print();
+
+    std::cout << "\n\n";
+
+    Vector a(2.000, 3.457, 34);
+    a.print();
+    std::cout << "\n\n";
+
+    Matrix A(3, 3, 1);
+    A.print();
     std::cout << "\n\n\n\n\n";
 }
