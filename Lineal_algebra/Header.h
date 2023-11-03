@@ -4,5 +4,7 @@
 #include <vector>
 #include <string>
 
+#include "Double.h"
+
 #include "Vector.h"
 #include "Matrix.h"

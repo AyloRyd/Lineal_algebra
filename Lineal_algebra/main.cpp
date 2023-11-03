@@ -35,13 +35,22 @@ int main() {
 
     //std::cout << A.determinant();
 
-    Matrix C = {
-        {1.5,2,3,4},
-        {2,5,8,9},
-        {3,8,0.35,2},
-        {4.8,3,3,3}
+    //Matrix C = {
+    //    {1.5,2,3,4},
+    //    {2,5,8,9},
+    //    {3,8,0.35,2},
+    //    {4.8,3,3,3}
+    //};
+    //C.print();
+
+    Matrix S = {
+        {1.2, 4, 3.45, 2},
+        {3, 555, 34, 5.2},
+        {3, 5, 7, 345},
+        {5, 67, 7.768, 1}
     };
-    C.print();
+
+    S.print(); 
 
     //std::cout << C.determinant();
     //std::cout << "\n\n";
@@ -73,23 +82,22 @@ int main() {
     //Matrix Pow = C.pow(3);
     //Pow.print();
 
-    Matrix K = {
-        {6},
-        {-2},
-        {7},
-        {4}
-    };
+    //Matrix K = {
+    //    {6},
+    //    {-2},
+    //    {7},
+    //    {4}
+    //};
 
     //Matrix FK = F * K;
     //FK.print();
 
-    std::cout << "\n\n";
+    //std::cout << "\n\n\n\n\n";
 
-    Vector a(2.000, 3.457, 34);
-    a.print();
-    std::cout << "\n\n";
+    //double num = 123;  
+    //int digitCount = countDigitsInDouble(num);
 
-    Matrix A(3, 3, 1);
-    A.print();
-    std::cout << "\n\n\n\n\n";
+    //std::cout << num << " : " << digitCount << std::endl; 
+
+    std::cout << "\n\n";
 }

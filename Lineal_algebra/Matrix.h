@@ -21,8 +21,6 @@ public:
 
     void print() const;
 
-    void print_det() const;
-
     std::vector<double>& operator[](int row);
 
     Matrix operator *(double scalar);

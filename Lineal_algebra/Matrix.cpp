@@ -1,4 +1,4 @@
-#include "Matrix.h"
+﻿#include "Matrix.h"
 
 Matrix Matrix::deleteRowAndColumn(int rowIndex, int columnIndex) const 
 {
@@ -47,7 +47,7 @@ void Matrix::print() const
 
     for (int i = 0; i < rows_; i++) {
         for (int j = 0; j < cols_; j++) {
-            int valueLength = std::to_string(data_[i][j]).size();
+            int valueLength = countDigitsInDouble(data_[i][j]);
             if (valueLength > max_lengths[j]) {
                 max_lengths[j] = valueLength;
             }
@@ -57,39 +57,13 @@ void Matrix::print() const
     for (int i = 0; i < rows_; i++) {
         std::cout << "(";
         for (int j = 0; j < cols_; j++) {
-            std::string string_value = std::to_string(data_[i][j]);
-            for (int space = 0; space < max_lengths[j] - string_value.size(); space++) {
+            int valueLength = countDigitsInDouble(data_[i][j]);
+            for (int space = 0; space < max_lengths[j] - valueLength; space++) {
                 std::cout << " ";
             }
-            j == cols_ - 1 ? std::cout << data_[i][j] : std::cout << data_[i][j] << " ";
+            j == cols_ - 1 ? std::cout << data_[i][j] : std::cout << data_[i][j] << "  ";
         }
         i == rows_ - 1 ? std::cout << ")" : std::cout << ")\n";
-    }
-}
-
-void Matrix::print_det() const 
-{
-    std::vector<int> max_lengths(cols_, 0);
-
-    for (int i = 0; i < rows_; i++) {
-        for (int j = 0; j < cols_; j++) {
-            int valueLength = std::to_string(data_[i][j]).size();
-            if (valueLength > max_lengths[j]) {
-                max_lengths[j] = valueLength;
-            }
-        }
-    }
-
-    for (int i = 0; i < rows_; i++) {
-        std::cout << "|";
-        for (int j = 0; j < cols_; j++) {
-            std::string string_value = std::to_string(data_[i][j]);
-            for (int space = 0; space < max_lengths[j] - string_value.size(); space++) {
-                std::cout << " ";
-            }
-            j == cols_ - 1 ? std::cout << data_[i][j] : std::cout << data_[i][j] << " ";
-        }
-        i == rows_ - 1 ? std::cout << "|" : std::cout << "|\n";
     }
 }
 
