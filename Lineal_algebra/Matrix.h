@@ -12,6 +12,24 @@ private:
 
     Matrix deleteRowAndColumn(int rowIndex, int columnIndex) const;
 
+        if (rowIndex < Result.rows_) {
+            Result.data_.erase(Result.data_.begin() + rowIndex);
+            Result.rows_--;
+
+            for (auto& row : Result.data_) {
+                if (columnIndex < row.size()) {
+                    row.erase(row.begin() + columnIndex);
+                }
+            }
+            Result.cols_--;
+        }
+        else {
+            std::cerr << "Index out of range!" << std::endl;
+        }
+
+        return Result;
+    }
+
 public:
     Matrix(int rows, int cols) : rows_(rows), cols_(cols), data_(rows, std::vector<double>(cols, 0)) {}
 
@@ -38,7 +56,7 @@ public:
     Matrix pow(int power);
 
     double determinant();
-        
+
     double algebraic_addition(int row, int col);
 
     Matrix algebraic_additions();
