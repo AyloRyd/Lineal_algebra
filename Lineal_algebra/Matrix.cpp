@@ -16,7 +16,7 @@ Matrix Matrix::findMinor(int rowIndex, int columnIndex) const
         Result.cols_--;
     }
     else {
-        std::cerr << "Index out of range!" << std::endl;
+        throw std::exception("Index out of range!\n");
     }
 
     return Result;
@@ -33,7 +33,7 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double>> list)
             cols_ = row.size();
         }
         else if (row.size() != cols_) {
-            throw std::invalid_argument("Invalid matrix definition! Rows have different column counts.");
+            throw std::exception("Invalid matrix definition! Rows have different column counts.\n");
         }
 
         data_.push_back(row);
@@ -77,7 +77,7 @@ std::vector<double>& Matrix::operator[](int row)
         return data_[row];
     }
     else {
-        throw std::out_of_range("Index out of range!");
+        throw std::exception("Index out of range!\n");
     }
 }
 
@@ -95,7 +95,7 @@ Matrix Matrix::operator *(double scalar)
 Matrix Matrix::operator *(const Matrix& Other)
 {
     if (cols_ != Other.rows_) {
-        throw std::invalid_argument("Error! The number of columns of the first matrix is not equal to the number of rows of the second matrix!");
+        throw std::exception("Error! The number of columns of the first matrix is not equal to the number of rows of the second matrix!\n");
     }
     Matrix Result(rows_, Other.cols_);
     for (int i = 0; i < rows_; i++) {
@@ -111,7 +111,7 @@ Matrix Matrix::operator *(const Matrix& Other)
 Matrix Matrix::operator +(const Matrix& Other) 
 {
     if (rows_ != Other.rows_ || cols_ != Other.cols_) {
-        throw std::invalid_argument("Error! Matrix sizes are not equal!");
+        throw std::exception("Error! Matrix sizes are not equal!\n");
     }
     Matrix Result(rows_, cols_);
     for (int i = 0; i < rows_; i++) {
@@ -125,7 +125,7 @@ Matrix Matrix::operator +(const Matrix& Other)
 Matrix Matrix::operator -(const Matrix& Other)
 {
     if (rows_ != Other.rows_ || cols_ != Other.cols_) {
-        throw std::invalid_argument("Error! Matrix sizes are not equal!");
+        throw std::exception("Error! Matrix sizes are not equal!\n");
     }
     Matrix Result(rows_, cols_);
     for (int i = 0; i < rows_; i++) {
@@ -146,12 +146,12 @@ Matrix Matrix::pow(int power)
 {
     Matrix Result = *this;
     if (power < 0) {
-        throw std::invalid_argument("Exponent should be a non-negative integer");
+        throw std::exception("Exponent should be a non-negative integer\n");
     }
 
     if (power == 0) {
         if (rows_ != cols_) {
-            throw std::invalid_argument("Matrix must be square for exponentiation to 0");
+            throw std::exception("Matrix must be square for exponentiation to 0\n");
         }
         Matrix Result_0(rows_, cols_);
         for (int i = 0; i < rows_; ++i) {
@@ -173,7 +173,7 @@ Matrix Matrix::pow(int power)
 double Matrix::determinant()
 {
     if (rows_ != cols_) {
-        throw std::invalid_argument("Error! The number of rows is not equal to the number of columns!");
+        throw std::exception("Error! The number of rows is not equal to the number of columns!\n");
     }
 
     if (cols_ == 1 && rows_ == 1) {
@@ -196,7 +196,7 @@ double Matrix::determinant()
 double Matrix::algebraic_addition(int row, int col)
 {
     if (row < 0 || row >= rows_ || col < 0 || col >= cols_) {
-        throw std::out_of_range("Error! Index out of range!");
+        throw std::exception("Error! Index out of range!\n");
     }
 
     Matrix smallerMatrix = findMinor(row, col);
@@ -208,7 +208,7 @@ double Matrix::algebraic_addition(int row, int col)
 Matrix Matrix::algebraic_additions()
 {
     if (rows_ != cols_) {
-        throw std::invalid_argument("Error! The number of rows is not equal to the number of columns!");
+        throw std::exception("Error! The number of rows is not equal to the number of columns!\n");
     }
 
     Matrix Result(rows_, cols_);
