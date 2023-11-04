@@ -1,5 +1,10 @@
 #include "Vector.h"
 
+Vector::Vector()
+{
+    x = 0, y = 0, z = 0;
+}
+
 Vector::Vector(double x_coordinate, double y_coordinate, double z_coordinate)
 {
     x = x_coordinate;
@@ -9,7 +14,7 @@ Vector::Vector(double x_coordinate, double y_coordinate, double z_coordinate)
 
 void Vector::print() const 
 {
-    std::cout << "(" << x << "," << y << "," << z << ")";
+    std::cout << "(" << x << ";" << y << ";" << z << ")";
 }
 
 double Vector::length() const 
@@ -17,9 +22,19 @@ double Vector::length() const
     return sqrt(x * x + y * y + z * z);
 }
 
+double Vector::projection_of_vector_onto_vector(const Vector& Vector_1, const Vector& Vector_2)
+{
+    return Scalar_product(Vector_1, Vector_2) / Vector_2.length();
+}
+
 bool Vector::operator==(const Vector& Other) 
 {
     return x == Other.x && y == Other.y && z == Other.z;
+}
+
+bool Vector::operator!=(const Vector& Other)
+{
+    return x != Other.x || y != Other.y || z != Other.z;
 }
 
 Vector Vector::operator*(double scalar) const
@@ -53,14 +68,14 @@ Vector Vector::Vector_product(const Vector& Vector_1, const Vector& Vector_2)
 {
     double i = 1, j = 1, k = 1;
     Matrix Vector_matrix = {
-        {i,          j,          k         },
+        {i,          j,          k         }, 
         {Vector_1.x, Vector_1.y, Vector_1.z},
         {Vector_2.x, Vector_2.y, Vector_2.z}
     };
 
-    double new_x = Vector_matrix.algebraic_addition(0, 0);
-    double new_y = Vector_matrix.algebraic_addition(0, 1);
-    double new_z = Vector_matrix.algebraic_addition(0, 2);
+    double new_x = Vector_matrix.algebraic_addition(0, 0); if (new_x == -0) { new_x = 0; }
+    double new_y = Vector_matrix.algebraic_addition(0, 1); if (new_y == -0) { new_y = 0; } 
+    double new_z = Vector_matrix.algebraic_addition(0, 2); if (new_z == -0) { new_z = 0; } 
 
     return Vector(new_x, new_y, new_z);
 }
@@ -76,12 +91,32 @@ double Vector::Mixed_product(const Vector& Vector_1, const Vector& Vector_2, con
     return Vector_matrix.determinant();
 }
 
+double Vector::triangle_area(const Vector& Vector_1, const Vector& Vector_2)
+{
+    return Vector_product(Vector_1, Vector_2).length() * (1.0 / 2.0);
+}
+
+double Vector::parallelogram_area(const Vector& Vector_1, const Vector& Vector_2)
+{
+    return Vector_product(Vector_1, Vector_2).length();
+}
+
+double Vector::pyramid_volume(const Vector& Vector_1, const Vector& Vector_2, const Vector& Vector_3)
+{
+    return abs(Mixed_product(Vector_1, Vector_2, Vector_3)) * (1.0 / 6.0);
+}
+
+double Vector::parallelepiped_volume(const Vector& Vector_1, const Vector& Vector_2, const Vector& Vector_3)
+{
+    return abs(Mixed_product(Vector_1, Vector_2, Vector_3));
+}
+
 bool Vector::isCollinear(const Vector& Vector_1, const Vector& Vector_2) 
 {
     return (Vector_product(Vector_1, Vector_2).length() == 0);
 }
 
-bool Vector::isPerpendicular(const Vector& Vector_1, const Vector& Vector_2) 
+bool Vector::isOrthogonal(const Vector& Vector_1, const Vector& Vector_2)
 {
     return (Scalar_product(Vector_1, Vector_2) == 0);
 }
@@ -99,4 +134,16 @@ double Vector::cosine(const Vector& Vector_1, const Vector& Vector_2)
 double Vector::sinus(const Vector& Vector_1, const Vector& Vector_2) 
 {
     return sqrt(1 - std::pow(Vector::cosine(Vector_1, Vector_2), 2));
+}
+
+std::vector<double> Vector::directional_cosines()
+{
+    Vector x_vector(1, 0, 0), y_vector(0, 1, 0), z_vector(0, 0, 1);
+    std::vector<double> cosines = { cosine(*this, x_vector), cosine(*this, y_vector), cosine(*this, z_vector) };
+    return cosines; 
+}
+
+double Vector::angle_between_vectors(const Vector& Vector_1, const Vector& Vector_2)
+{
+    return acos(cosine(Vector_1, Vector_2)) * 180 / PI;
 }
