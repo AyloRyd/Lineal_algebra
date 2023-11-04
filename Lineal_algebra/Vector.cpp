@@ -53,7 +53,7 @@ Vector Vector::Vector_product(const Vector& Vector_1, const Vector& Vector_2)
 {
     double i = 1, j = 1, k = 1;
     Matrix Vector_matrix = {
-        {i, j, k},
+        {i,          j,          k         },
         {Vector_1.x, Vector_1.y, Vector_1.z},
         {Vector_2.x, Vector_2.y, Vector_2.z}
     };
@@ -78,26 +78,17 @@ double Vector::Mixed_product(const Vector& Vector_1, const Vector& Vector_2, con
 
 bool Vector::isCollinear(const Vector& Vector_1, const Vector& Vector_2) 
 {
-    if (Vector_product(Vector_1, Vector_2).length() == 0) {
-        return true;
-    }
-    return false;
+    return (Vector_product(Vector_1, Vector_2).length() == 0);
 }
 
 bool Vector::isPerpendicular(const Vector& Vector_1, const Vector& Vector_2) 
 {
-    if (Scalar_product(Vector_1, Vector_2) == 0) {
-        return true;
-    }
-    return false;
+    return (Scalar_product(Vector_1, Vector_2) == 0);
 }
 
 bool Vector::isComplanar(const Vector& Vector_1, const Vector& Vector_2, const Vector& Vector_3) 
 {
-    if (Mixed_product(Vector_1, Vector_2, Vector_3) == 0) {
-        return true;
-    }
-    return false;
+    return (Mixed_product(Vector_1, Vector_2, Vector_3) == 0);
 }
 
 double Vector::cosine(const Vector& Vector_1, const Vector& Vector_2) 
