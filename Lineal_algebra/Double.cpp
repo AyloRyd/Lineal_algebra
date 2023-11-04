@@ -12,6 +12,7 @@ int countDigitsInDouble(double number) {
     double fractionalPart = number - integerPart;;
 
     int digitsOfIntegerPart = std::to_string(integerPart).size();
+    if (isNegative) digitsOfIntegerPart++;
 
     if (std::to_string(fractionalPart)[2] == '0') {
         return digitsOfIntegerPart;
@@ -26,7 +27,6 @@ int countDigitsInDouble(double number) {
     }
 
     int totalDigits = digitsOfIntegerPart + digitsOfFractionalPart + 1; 
-    if (isNegative) totalDigits++;
 
     return totalDigits;
 }

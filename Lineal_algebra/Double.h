@@ -3,6 +3,4 @@
 
 int countDigitsInDouble(double number);
 
-double format(double number);
-
 double formatDouble(double number);
