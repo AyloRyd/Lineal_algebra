@@ -10,7 +10,7 @@ private:
     int cols_;
     std::vector<std::vector<double>> data_;
 
-    Matrix deleteRowAndColumn(int rowIndex, int columnIndex) const;
+    Matrix findMinor(int rowIndex, int columnIndex) const;
 
 public:
     Matrix(int rows, int cols) : rows_(rows), cols_(cols), data_(rows, std::vector<double>(cols, 0)) {}

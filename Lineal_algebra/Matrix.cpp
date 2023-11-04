@@ -1,6 +1,6 @@
 ﻿#include "Matrix.h"
 
-Matrix Matrix::deleteRowAndColumn(int rowIndex, int columnIndex) const 
+Matrix Matrix::findMinor(int rowIndex, int columnIndex) const
 {
     Matrix Result = *this;
 
@@ -186,7 +186,7 @@ double Matrix::determinant()
 
     double determinant = 0;
     for (int j = 0; j < cols_; j++) {
-        Matrix smallerMatrix = deleteRowAndColumn(0, j);
+        Matrix smallerMatrix = findMinor(0, j);
         double minorDet = smallerMatrix.determinant();
         determinant += data_[0][j] * std::pow(-1, j) * minorDet;
     }
@@ -199,7 +199,7 @@ double Matrix::algebraic_addition(int row, int col)
         throw std::out_of_range("Error! Index out of range!");
     }
 
-    Matrix smallerMatrix = deleteRowAndColumn(row, col);
+    Matrix smallerMatrix = findMinor(row, col);
     double det = smallerMatrix.determinant();
 
     return det * std::pow(-1, row + col);
