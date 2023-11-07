@@ -30,8 +30,3 @@ int countDigitsInDouble(double number) {
 
     return totalDigits;
 }
-
-double formatDouble(double number)
-{
-    return std::round(number * 100) / 100.0;
-}

@@ -16,7 +16,7 @@ Matrix Matrix::findMinor(int rowIndex, int columnIndex) const
         Result.cols_--;
     }
     else {
-        throw std::exception("Index out of range!\n");
+        throw std::exception("Error! Index out of range!\n");
     }
 
     return Result;
@@ -77,7 +77,7 @@ std::vector<double>& Matrix::operator[](int row)
         return data_[row];
     }
     else {
-        throw std::exception("Index out of range!\n");
+        throw std::exception("Error! Index out of range!\n");
     }
 }
 
@@ -144,15 +144,16 @@ Matrix Matrix::inverse_matrix()
 
 Matrix Matrix::pow(int power)
 {
+    if (rows_ != cols_) {
+        throw std::exception("Error! A non-square matrix cannot be exponentiated!\n");
+    }
+
     Matrix Result = *this;
     if (power < 0) {
-        throw std::exception("Exponent should be a non-negative integer\n");
+        throw std::exception("Error! Exponent should be a non-negative integer!\n");
     }
 
     if (power == 0) {
-        if (rows_ != cols_) {
-            throw std::exception("Matrix must be square for exponentiation to 0\n");
-        }
         Matrix Result_0(rows_, cols_);
         for (int i = 0; i < rows_; ++i) {
             Result_0.data_[i][i] = 1;
@@ -173,7 +174,7 @@ Matrix Matrix::pow(int power)
 double Matrix::determinant()
 {
     if (rows_ != cols_) {
-        throw std::exception("Error! The number of rows is not equal to the number of columns!\n");
+        throw std::exception("Error! The determinant cannot be found for a non-square matrix!\n");
     }
 
     if (cols_ == 1 && rows_ == 1) {
@@ -222,11 +223,10 @@ Matrix Matrix::algebraic_additions()
     return Result;
 }
 
-Matrix Matrix::transpose()
-{
-    Matrix Result(rows_, cols_);
-    for (int i = 0; i < rows_; i++) {
-        for (int j = 0; j < cols_; j++) {
+Matrix Matrix::transpose() {
+    Matrix Result(cols_, rows_);
+    for (int i = 0; i < cols_; i++) {
+        for (int j = 0; j < rows_; j++) {
             Result.data_[i][j] = data_[j][i];
         }
     }

@@ -1,15 +1,25 @@
 #include "Vector.h"
 
-Vector::Vector()
+//Vector::Vector(double x_coordinate = 0, double y_coordinate = 0, double z_coordinate = 0)
+//{
+//    x = x_coordinate;
+//    y = y_coordinate;
+//    z = z_coordinate;
+//}
+
+double Vector::get_x()
 {
-    x = 0, y = 0, z = 0;
+    return x;
 }
 
-Vector::Vector(double x_coordinate, double y_coordinate, double z_coordinate)
+double Vector::get_y()
 {
-    x = x_coordinate;
-    y = y_coordinate;
-    z = z_coordinate;
+    return y;
+}
+
+double Vector::get_z()
+{
+    return z;
 }
 
 void Vector::print() const 
@@ -24,17 +34,17 @@ double Vector::length() const
 
 double Vector::projection_of_vector_onto_vector(const Vector& Vector_1, const Vector& Vector_2)
 {
-    return Scalar_product(Vector_1, Vector_2) / Vector_2.length();
+    return abs(Scalar_product(Vector_1, Vector_2) / Vector_2.length());
 }
 
 bool Vector::operator==(const Vector& Other) 
 {
-    return x == Other.x && y == Other.y && z == Other.z;
+    return this->x == Other.x && this->y == Other.y && this->z == Other.z;
 }
 
 bool Vector::operator!=(const Vector& Other)
 {
-    return x != Other.x || y != Other.y || z != Other.z;
+    return this->x != Other.x || this->y != Other.y || this->z != Other.z;
 }
 
 Vector Vector::operator*(double scalar) const
@@ -45,17 +55,17 @@ Vector Vector::operator*(double scalar) const
 
 Vector Vector::operator+(const Vector& Other) const 
 {
-    double result_x = x + Other.x;
-    double result_y = y + Other.y;
-    double result_z = z + Other.z;
+    double result_x = this->x + Other.x;
+    double result_y = this->y + Other.y;
+    double result_z = this->z + Other.z;
     return Vector(result_x, result_y, result_z);
 }
 
 Vector Vector::operator-(const Vector& Other) const 
 {
-    double result_x = x - Other.x;
-    double result_y = y - Other.y;
-    double result_z = z - Other.z;
+    double result_x = this->x - Other.x;
+    double result_y = this->y - Other.y;
+    double result_z = this->z - Other.z;
     return Vector(result_x, result_y, result_z);
 }
 
@@ -131,9 +141,19 @@ double Vector::cosine(const Vector& Vector_1, const Vector& Vector_2)
     return Scalar_product(Vector_1, Vector_2) / (Vector_1.length() * Vector_2.length());
 }
 
-double Vector::sinus(const Vector& Vector_1, const Vector& Vector_2) 
+double Vector::sine(const Vector& Vector_1, const Vector& Vector_2)
 {
     return sqrt(1 - std::pow(Vector::cosine(Vector_1, Vector_2), 2));
+}
+
+double Vector::tangent(const Vector& Vector_1, const Vector& Vector_2)
+{
+    return sine(Vector_1, Vector_2) / cosine(Vector_1, Vector_2);
+}
+
+double Vector::cotangent(const Vector& Vector_1, const Vector& Vector_2)
+{
+    return 1.0 / tangent(Vector_1, Vector_2); 
 }
 
 std::vector<double> Vector::directional_cosines()
@@ -145,5 +165,5 @@ std::vector<double> Vector::directional_cosines()
 
 double Vector::angle_between_vectors(const Vector& Vector_1, const Vector& Vector_2)
 {
-    return acos(cosine(Vector_1, Vector_2)) * 180 / PI;
+    return acos(cosine(Vector_1, Vector_2)) * 180 / 3.14159265358979323846;
 }
